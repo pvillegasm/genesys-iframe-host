@@ -1,49 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CIF v2 Test</title>
 
-    <title>Genesys Embedded Framework</title>
-
-    <!-- CRITICAL: Load the CIF v2 runtime library -->
-    <script src="https://orgd9ff46e0.crm.dynamics.com/WebResources/msdyn_ciLibrary/msdyn_ci_library.js"></script>
+    <!-- Official CIF v2 SDK -->
+    <script src="https://appsforcrm.microsoft.com/sdk/cif/2.0/MSDyn_ChannelIntegrationFramework.js"></script>
   </head>
+  <body style="font-family: Arial; padding: 20px">
+    <h1>CIF v2 Test Page</h1>
+    <p>Iframe loaded correctly.</p>
 
-  <body>
-    <h1>Genesys Embedded Framework</h1>
-    <p>
-      If CIF v2 is available, it will attach automatically when loaded inside
-      Copilot / Omnichannel.
-    </p>
+    <button onclick="sendTest()">Send Test Event</button>
 
     <script>
-      // CIF v2 auto-detection logic
-      document.addEventListener("DOMContentLoaded", () => {
-        console.log("Page loaded, checking for CIF...");
-
-        let retry = 0;
-        const maxRetries = 20;
-
-        const checkCIF = () => {
-          if (typeof Microsoft !== "undefined" && Microsoft.CI) {
-            console.log(
-              "%cCIF v2 detected and active.",
-              "color: green; font-weight: bold;"
-            );
-          } else {
-            retry++;
-            if (retry < maxRetries) {
-              setTimeout(checkCIF, 300);
-            } else {
-              console.warn("CIF v2 NOT detected after retries.");
-            }
-          }
-        };
-
-        checkCIF();
+      Microsoft.CIFramework.initialize().then(() => {
+        console.log("CIF v2 initialized");
       });
+
+      function sendTest() {
+        Microsoft.CIFramework.notifyEvent("TestEvent", {
+          text: "Hello from iframe",
+        });
+      }
     </script>
   </body>
 </html>
