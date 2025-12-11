@@ -1,0 +1,13 @@
+{
+  "globalHeaders": {
+    "X-Frame-Options": "ALLOWALL",
+    "Content-Security-Policy": "frame-ancestors https://*.dynamics.com https://*.crm.dynamics.com https://*.powerapps.com https://*.microsoft.com 'self';",
+    "Referrer-Policy": "no-referrer-when-downgrade",
+    "X-Content-Type-Options": "nosniff"
+  },
+  "mimeTypes": {
+    ".html": "text/html",
+    ".js": "application/javascript",
+    ".css": "text/css"
+  }
+}

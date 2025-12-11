@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Genesys Embedded Framework</title>
+</head>
+
+<body>
+    <h1>Genesys Embedded Framework</h1>
+    <p>If CIF v2 is available, it will attach automatically when loaded inside Copilot/Ominchannel.</p>
+
+    <script>
+        // CIF v2 auto-detection logic
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("Page loaded, checking for CIF...");
+
+            // Retry detection because CIF loads slightly after iframe renders
+            let retry = 0;
+            const maxRetries = 20;
+
+            const checkCIF = () => {
+                if (typeof Microsoft !== "undefined" && Microsoft.CIF) {
+                    console.log("%cCIF v2 detected and active.", "color: green; font-weight: bold;");
+                } else {
+                    retry++;
+                    if (retry < maxRetries) {
+                        setTimeout(checkCIF, 300);
+                    } else {
+                        console.warn("CIF v2 NOT detected after retries.");
+                    }
+                }
+            };
+
+            checkCIF();
+        });
+    </script>
+</body>
+</html>
